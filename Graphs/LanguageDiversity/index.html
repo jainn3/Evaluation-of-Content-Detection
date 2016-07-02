@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Graphic</title>
+</head>
+<style type="text/css">
+  
+
+text{
+  font: 13px sans-serif;
+}
+
+</style>
+
+<body>
+  <div class="container">
+    <h2>D3 Visualization</h2>
+    <div> Select Distribution : 
+    <select id="distribution_type" onchange="drawgraphsfor()"> 
+      <option value='1'>select a distribution</option>
+    </select>
+    <div id="chart"></div>
+  </div>
+  <script src="d3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script type="text/javascript" src="json_data/pre_distribution_data.json"></script>
+  <script type="text/javascript" src="json_data/post_distribution_data.json"></script>
+  <script type="text/javascript" src="LanguageDiversityJSON.json"></script>
+
+  <script type="text/javascript">
+  var select = document.getElementById("distribution_type");
+  for(var mime in data) {
+    if(data.hasOwnProperty(mime)) {
+      var opt = document.createElement('option');
+      opt.value = mime;
+      opt.innerHTML = mime;
+      select.appendChild(opt);
+    }
+  }
+
+  var global_language_count = [];
+  for(var mime in data) {
+    if(data.hasOwnProperty(mime)) {
+      for(lang in data[mime]) {
+        if(data[mime].hasOwnProperty(lang)) {
+          if(lang in global_language_count) {
+            global_language_count[lang] = global_language_count[lang] + parseInt(data[mime][lang]);
+          }
+          else {
+            global_language_count[lang] = parseInt(data[mime][lang]);
+          }
+        }
+      }
+    }
+  }
+
+  console.log(global_language_count);
+
+  drawgraphsforAll(global_language_count);
+
+  function drawgraphsfor() {
+    document.getElementById("chart").innerHTML ="";
+    var mime = document.getElementById("distribution_type").value;
+    if(mime==="1")
+      drawgraphsforAll(global_language_count);
+    var graph_data = [];
+    for(lang in data[mime]) {
+      if(data[mime].hasOwnProperty(lang)) {
+        var item={"lang":lang,"count":parseInt(data[mime][lang])};
+        graph_data.push(item);
+      }
+    }
+    var top= 30, right= 30, bottom= 40, left=50; 
+    drawgraph(graph_data,30,30,40,50,1, "", "Language Distribution for "+mime);
+  }
+
+  function getLanguage(lang) {
+      if(lang==="be")
+        return "Belarusian";
+      else if(lang==="ca")
+        return "Catalan";
+      else if(lang==="da")
+        return "Danish";
+      else if(lang==="de")
+        return "German";
+      else if(lang==="el")
+        return "Greek";
+      else if(lang==="en")
+        return "English";
+      else if(lang==="eo")
+        return "Esperanto";
+      else if(lang==="es")
+        return "Spanish";
+      else if(lang==="et")
+        return "Estonion";
+      else if(lang==="fa")
+        return "Farsi";
+      else if(lang==="fi")
+        return "Finnish";
+      else if(lang==="fr")
+        return "French";
+      else if(lang==="gl")
+        return "Galician";
+      else if(lang==="hu")
+        return "Hungarian";
+      else if(lang==="is")
+        return "Icelandic";
+      else if(lang==="it")
+        return "Italian";
+      else if(lang==="ca")
+        return "Catalan";
+      else if(lang==="lt")
+        return "Liuthanian";
+      else if(lang==="nl")
+        return "Dutch";
+      else if(lang==="no")
+        return "Norwegian";
+      else if(lang==="pl")
+        return "Polish";
+      else if(lang==="pt")
+        return "Portuguese";
+      else if(lang==="ro")
+        return "Romanian";
+      else if(lang==="ru")
+        return "Russian";
+      else if(lang==="sk")
+        return "Slovak";
+      else if(lang==="sl")
+        return "Slovenian";
+      else if(lang==="sv")
+        return "Swedish";
+      else if(lang==="th")
+        return "Thai";
+      else if(lang==="uk")
+        return "Ukranian";
+  }
+
+  //helper function to draw graph
+  function drawgraphsforAll(jsondata) { 
+    document.getElementById("chart").innerHTML ="";
+
+      var keys1 = [];
+      var keys2 = [];
+      var keys3 = [];
+      var graph_data1=[];
+      var graph_data2=[];
+      var graph_data3=[];
+      var keys4 = [];
+      var graph_data4 = [];
+      var max1=0;
+      var max2=0;
+      var max3=0;
+      var max4=0;
+
+      for(key in jsondata) {
+          // console.log(key);
+          if(jsondata.hasOwnProperty(key)){
+            
+            if(jsondata[key] > 33000) {
+              keys1.push(key);
+              var item={"lang":key,"count":jsondata[key]/1000};
+              graph_data1.push(item);
+              max1 = Math.max(jsondata[key],max1);  
+            } else if(jsondata[key] > 850) {
+              keys2.push(key);
+              var item={"lang":key,"count":jsondata[key]/100};
+              graph_data2.push(item);
+              max12 = Math.max(jsondata[key],max2);  
+            } else if(jsondata[key] > 100){
+              keys3.push(key);
+              var item={"lang":key,"count":jsondata[key]/10};
+              graph_data3.push(item);
+              max3 = Math.max(jsondata[key],max3);  
+            }
+            else {
+              if(jsondata[key] > 0) {
+                keys4.push(key);
+                var item={"lang":key,"count":jsondata[key]};
+                graph_data4.push(item);
+                max4 = Math.max(jsondata[key],max4);
+              }
+              
+            }
+          }  
+      }
+
+    var top= 30, right= 30, bottom= 40, left=50; 
+    drawgraph(graph_data1,30,30,40,50,1, "", "Frequency in thousands");
+    top+=50;
+    bottom+=50;
+    drawgraph(graph_data2,30,30,40,50,2, "", "Frequency in hundreds");
+    top+=50;
+    bottom+=50;
+    drawgraph(graph_data3,30,30,40,50,3, "", "Frequency in tens");
+    top+=50;
+    bottom+=50;
+    drawgraph(graph_data4,30,30,40,50,4, "", "Normal Frequency");
+    // console.log(graph_data4);
+
+    // var json = data;
+    // var count = 1;
+    // for (g in json.graphs) {
+    //     bardata = json.graphs[g].data;
+    //     message = json.graphs[g].title;
+    //     type = json.graphs[g].mime;
+    //     drawgraph(bardata,30,30,40,50,count, message, type);
+    //     top+=100;
+    //     bottom+=100;
+    //     count+=1;
+    // }
+  }
+// function to draw graph
+    // function to draw graph
+    function drawgraph(data, t, r, b, l, id, message, type) {
+
+
+        var margin = { top: t, right: r, bottom: b, left:l }
+
+        var height = 300,
+            width = 500 ,
+            barWidth = 25,
+            barOffset = 5;
+        var tempColor;
+
+        var max = d3.max(data, function(d) { return d.count; });
+
+        var colors = d3.scale.linear()
+          .domain([0, max])
+          .range(['#00FF00','#000000'])
+        
+        var yScale = d3.scale.linear()
+                .domain([0, max])
+                .range([0, height]);
+
+        // console.log(data.length);
+        // console.log(max);
+        var xScale = d3.scale.ordinal()
+                .domain(d3.range(0, data.length))
+                .rangeBands([0, 800], 0.1)
+
+        var xScale_Text = d3.scale.ordinal()
+                .domain(d3.range(0, data.length));
+                
+
+        var tooltip = d3.select('body').select("#chart").append('div')
+                .style('position', 'absolute')
+                .style('padding', '0 10px')
+                .style('background', 'yellowgreen')
+                .style('opacity', 0)
+
+        d3.select('#chart').append("div").attr("id","chart_"+id).append("div").html(message+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+ type);
+        var myChart = d3.select('#chart').select("#chart_"+id).append('svg')
+            .attr('width', 900) 
+            .attr('height', 370) 
+            .append('g')
+            .attr('transform', 'translate('+ margin.left +', '+ margin.top +')')
+            .attr('class','svg')
+            .selectAll('rect').data(data)
+            .enter().append("rect")
+                .attr("class","bar")
+                .style('fill', function(d,i) {
+                    return colors(d.count);
+                })
+                .attr('width', xScale.rangeBand())
+                .attr('x', function(d,i) {
+                    return xScale(i);
+                })
+      
+            .on('mouseover', function(d, i) {
+
+                tooltip.transition()
+                    .style('opacity', .9)
+                var custom_message = "Language: "+getLanguage(d.lang)+" Count:"+d.count;
+                tooltip.html(custom_message)
+                    .style('left', (d3.event.pageX + 35) + 'px')
+                    .style('top',  (d3.event.pageY + 30) + 'px')
+                    .style('color', 'black')
+
+
+                tempColor = this.style.fill;
+                d3.select(this)
+                    .style('opacity', .5)
+                    .style('fill', '#4dd2ff')
+            })
+
+            .on('mouseout', function(d) {
+                d3.select(this)
+                    .style('opacity', 1)
+                    .style('fill', tempColor)
+            })
+
+        myChart.transition()
+            .attr('height', function(d,i) {
+                return yScale(d.count);
+            })
+            .attr('y', function(d, i) {
+                return height - yScale(d.count);
+            })
+            .delay(function(d, i) {
+                return i * 20;
+            })
+            .duration(1000)
+            .ease('elastic')
+
+        var vGuideScale = d3.scale.linear()
+            .domain([0, max])
+            .range([height, 0])
+
+        var vAxis = d3.svg.axis()
+            .scale(vGuideScale)
+            .orient('left')
+            .ticks(10)
+
+        var vGuide = d3.select('#chart').select("#chart_"+id).select('svg').append('g')
+            vAxis(vGuide)
+            vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+            vGuide.selectAll('path')
+                .style({ fill: 'none', stroke: "green"})
+            vGuide.selectAll('line')
+                .style({ stroke: "white"})
+
+        var hAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom')
+            .tickValues(xScale.domain().filter(function(d, i) {
+                return !(i % (data.length/5));
+            }))
+            .tickFormat("");
+
+        var hGuide = d3.select('#chart').select("#chart_"+id).select('svg').append('g')
+            hAxis(hGuide)
+            hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')')
+            hGuide.selectAll('path')
+                .style({ fill: 'none', stroke: "green"})
+            hGuide.selectAll('line')
+                .style({ stroke: "white"})
+        d3.select('#chart').select("#chart_"+id).select('svg').append('g')
+        .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x",0 -2)
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Frequency");
+        
+        d3.select('#chart').select("#chart_"+id).select('svg').append('g')
+        .append("text")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height+65)
+        .text("Language");
+
+        var svg = d3.select('#chart').select("#chart_"+id).select(".svg").selectAll("text")
+                     .data(data)
+                     .enter()
+                     .append("text")
+                     .text(function(d,i) {
+                            return d.lang;
+                      })
+                     .attr("x", function(d,i){
+                      return xScale(i);
+                     })
+                     .attr("y", 320);
+    }  </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+    <style>
+        
+        path {
+            stroke: #fff;
+            fill-rule: evenodd;
+        }
+        
+        text {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        
+        /*add tooltip*/
+        div.tooltip {
+            /*position: absolute;*/
+            top: 100px;
+            left: 100px;
+            -moz-border-radius:5px;
+            border-radius: 5px;
+            border: 2px solid #ff0000;
+            background: #fff;
+            opacity: .9;
+            color: black;
+            padding: 10px;
+            width: 400px;
+            font: 12px sans-serif;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .tooltip .title {
+            font-size: 13px;
+        }
+        
+        .tooltip .name {
+            font-weight:bold;
+            font-size: 15px;
+        }
+        
+        </style>
+    <body>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="mydata.json"></script>
+        <script>
+            
+            var width = 500,
+            height = 500,
+            radius = Math.min(width, height) / 2;
+            
+            var x = d3.scale.linear()
+            .range([0, 2 * Math.PI]);
+            
+            var y = d3.scale.linear()
+            .range([0, radius]);
+            
+            var color = d3.scale.category20c();
+            
+            var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+            
+            var partition = d3.layout.partition()
+            .value(function(d) { return d.size; });
+            
+            /*Tooltip definition */
+            var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+            
+            
+            var arc = d3.svg.arc()
+            .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+            .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+            .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+            .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+            var g = svg.selectAll("g")
+                    .data(partition.nodes(flare_data))
+                    .enter().append("g")
+                    
+                    /*The following two '.on' attributes for tooltip*/
+                    .on("mouseover", function(d) {
+                        div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                        div.html(d.name + "<br/>Size: " + d.size + "<br/>Description: " + d.childDesc + "<br/>Unique Patents: " + d.patentCount+ "<br/>Unique patient CDR3s: " + d.patientCount)
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                        })
+                    .on("mouseout", function(d) {
+                        div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                        });
+                    
+                    
+                    var path = g.append("path")
+                    .attr("d", arc)
+                    .style("fill", function(d, i) { return color(i); })
+                    .on("click", click);
+                    
+                    var text = g.append("text")
+                    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+                    .attr('text-anchor', function (d) { return computeTextRotation(d) > 180 ? "end" : "start"; })
+                    .attr("dx", "6") // margin
+                    .attr("dy", ".35em") // vertical-align
+                    .text(function(d) { return d.childDesc; });
+                    
+                    function click(d) {
+                    // fade out all text elements
+                    text.transition().attr("opacity", 0);
+                    
+                    path.transition()
+                    .duration(750)
+                    .attrTween("d", arcTween(d))
+                    .each("end", function(e, i) {
+                          // check if the animated element's data e lies within the visible angle span given in d
+                          if (e.x >= d.x && e.x < (d.x + d.dx)) {
+                          // get a selection of the associated text element
+                          var arcText = d3.select(this.parentNode).select("text");
+                          // fade in the text element and recalculate positions
+                          arcText.transition().duration(750)
+                          .attr("opacity", 1)
+                          .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+                          .attr('text-anchor', function (d) { return computeTextRotation(d) > 180 ? "end" : "start"; })
+                          }
+                          });
+                    }
+            
+            d3.select(self.frameElement).style("height", height + "px");
+            
+            // Interpolate the scales!
+            function arcTween(d) {
+                var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+                yd = d3.interpolate(y.domain(), [d.y, 1]),
+                yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+                return function(d, i) {
+                    return i
+                    ? function(t) { return arc(d); }
+                    : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
+                };
+            }
+            
+            function computeTextRotation(d) {
+                var ang = (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+                return (ang > 90) ? 180 + ang : ang;
+            }
+            
+            </script>

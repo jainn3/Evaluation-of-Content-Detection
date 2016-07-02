@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Graphic</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<style type="text/css">
+  
+
+text{
+  font: 13px sans-serif;
+}
+
+</style>
+
+<body>
+  <div class="container">
+    <h2>High Frequency Words Visualization</h2>
+    Select Data : <select id="dataSource" onchange="drawgraphsfor()">
+    <option value="entire">Entire DataSet</option>
+    <option value="sweet">SWEET Concepts</option>
+    </select>
+  </div>
+  <div id="content_word_chart"></div>
+  <div id="sweet_word_chart"></div>
+  <script src="d3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script type="text/javascript" src="d3.cloud.js"></script>
+  <script type="text/javascript" src="data.json"></script>
+  <script type="text/javascript" src="SWEETdata.json"></script>
+
+  <script type="text/javascript">
+
+var drawnSWEETChart = false;
+var isContentChart = true;
+
+var id = "#content_word_chart";
+
+drawGraph(content_data);
+
+function drawgraphsfor() {
+    console.log("Changed");
+    var dataSource = document.getElementById("dataSource").value;
+    if (dataSource==="entire" && !isContentChart) {
+        document.getElementById("sweet_word_chart").style.display = "none";
+        document.getElementById("content_word_chart").style.display = "block";
+        isContentChart = true;
+    }
+    else if(dataSource==="sweet" && isContentChart){
+      document.getElementById("content_word_chart").style.display = "none";
+      if (!drawnSWEETChart) {
+        id = "#sweet_word_chart";
+        drawGraph(sweet_data);
+        drawnSWEETChart=true;
+      } else {
+        document.getElementById("sweet_word_chart").style.display = "block";
+      }
+      isContentChart = false;
+    }
+}
+
+function getDivID() {
+  return id;
+}
+
+function drawGraph(data) { 
+
+var fill = d3.scale.category20();
+
+var layout = d3.layout.cloud()
+    .size([1200, 600])
+    .words(data)
+    .padding(5)
+    .rotate(function() { return ~~(Math.random() * 2) * 37; })
+    .font("Impact")
+    .fontSize(function(d) { return d.size / 1000; })
+    .on("end", draw);
+
+layout.start();
+
+function draw(words) {
+  id = getDivID();
+  if (window.myflag === true) debugger;
+  d3.select("body").select(id).append("svg")
+      .attr("width", layout.size()[0])
+      .attr("height", layout.size()[1])
+    .append("g")
+      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+    .selectAll("text")
+      .data(words)
+    .enter().append("text")
+      .style("font-size", function(d) { return d.size + "px"; })
+      .style("font-family", "Impact")
+      .style("fill", function(d, i) { return fill(i); })
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d) {
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+      })
+      .text(function(d) { return d.text; });
+  }
+}
+  </script>
+</body>
+</html>

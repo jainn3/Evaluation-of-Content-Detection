@@ -1,0 +1,599 @@
+var data = {
+	"application\/x-tar": {
+		"sl": "1",
+		"sk": "13",
+		"gl": "1",
+		"ro": "6",
+		"it": "4",
+		"fi": "6",
+		"no": "6",
+		"hu": "1",
+		"pl": "2",
+		"fr": "4",
+		"en": "2",
+		"lt": "16",
+		"et": "11",
+		"es": "1"
+	},
+	"application\/dita+xml": {
+		"sl": "5",
+		"sk": "10",
+		"ro": "1",
+		"it": "2",
+		"no": "4",
+		"fr": "4",
+		"en": "117",
+		"lt": "2",
+		"et": "174"
+	},
+	"application\/vnd.ms-excel": {
+		"sk": "5",
+		"ro": "20",
+		"gl": "9",
+		"it": "9",
+		"ca": "1",
+		"no": "6",
+		"hu": "4",
+		"en": "226",
+		"lt": "72",
+		"et": "40"
+	},
+	"image\/x-bpg": {
+		"lt": "7"
+	},
+	"image\/tiff": {
+		"lt": "448"
+	},
+	"application\/x-bzip2": {
+		"lt": "63"
+	},
+	"audio\/x-aiff": {
+		"lt": "9"
+	},
+	"application\/x-font-ttf": {
+		"lt": "9"
+	},
+	"application\/xhtml+xml": {
+		"sl": "78",
+		"sk": "675",
+		"uk": "90",
+		"is": "72",
+		"da": "37",
+		"ro": "2779",
+		"it": "5938",
+		"ca": "102",
+		"no": "3350",
+		"hu": "125",
+		"fa": "179",
+		"lt": "5175",
+		"th": "126",
+		"de": "505",
+		"gl": "617",
+		"el": "38",
+		"fi": "189",
+		"pt": "185",
+		"pl": "102",
+		"eo": "25",
+		"fr": "8474",
+		"sv": "50",
+		"en": "160635",
+		"ru": "264",
+		"et": "4164",
+		"es": "736",
+		"nl": "116",
+		"be": "1"
+	},
+	"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+		"sl": "2",
+		"ro": "5",
+		"gl": "1",
+		"it": "14",
+		"no": "7",
+		"hu": "3",
+		"fr": "9",
+		"en": "78",
+		"lt": "12",
+		"et": "11"
+	},
+	"application\/vnd.ms-powerpoint": {
+		"it": "7",
+		"fr": "2",
+		"en": "33",
+		"lt": "3",
+		"et": "2"
+	},
+	"application\/zip": {
+		"sl": "34",
+		"sk": "51",
+		"uk": "1",
+		"da": "8",
+		"is": "50",
+		"ro": "94",
+		"ca": "53",
+		"it": "60",
+		"no": "134",
+		"hu": "44",
+		"lt": "569",
+		"de": "2",
+		"gl": "25",
+		"fi": "46",
+		"pt": "12",
+		"pl": "93",
+		"eo": "12",
+		"fr": "69",
+		"sv": "3",
+		"en": "67",
+		"et": "126",
+		"es": "3",
+		"nl": "12"
+	},
+	"application\/fits": {
+		"lt": "24"
+	},
+	"application\/x-bittorrent": {
+		"lt": "3"
+	},
+	"image\/png": {
+		"lt": "24856"
+	},
+	"application\/atom+xml": {
+		"sl": "79",
+		"sk": "120",
+		"is": "7",
+		"da": "1",
+		"ro": "72",
+		"it": "136",
+		"ca": "14",
+		"no": "60",
+		"hu": "2",
+		"lt": "1085",
+		"gl": "3",
+		"fi": "6",
+		"pl": "41",
+		"pt": "2",
+		"fr": "207",
+		"eo": "25",
+		"sv": "5",
+		"en": "619",
+		"et": "164",
+		"es": "4",
+		"nl": "2"
+	},
+	"application\/x-archive": {
+		"gl": "4"
+	},
+	"image\/gif": {
+		"lt": "33657"
+	},
+	"text\/html": {
+		"sl": "206",
+		"sk": "711",
+		"uk": "83",
+		"is": "323",
+		"da": "26",
+		"ro": "11625",
+		"it": "14219",
+		"ca": "64",
+		"no": "10484",
+		"hu": "345",
+		"fa": "31",
+		"lt": "14147",
+		"th": "57",
+		"de": "243",
+		"gl": "1066",
+		"el": "22",
+		"fi": "234",
+		"pl": "67",
+		"pt": "83",
+		"eo": "5",
+		"fr": "4719",
+		"sv": "16",
+		"en": "239011",
+		"ru": "61",
+		"et": "8139",
+		"es": "351",
+		"nl": "54",
+		"be": "5"
+	},
+	"audio\/mpeg": {
+		"de": "2",
+		"sl": "4",
+		"sk": "59",
+		"gl": "12",
+		"is": "10",
+		"ro": "5",
+		"it": "7",
+		"no": "28",
+		"hu": "77",
+		"sv": "76",
+		"fr": "8",
+		"en": "55",
+		"lt": "85",
+		"et": "16"
+	},
+	"message\/rfc822": {
+		"sk": "1",
+		"ro": "2",
+		"it": "16",
+		"no": "15",
+		"en": "145",
+		"lt": "25",
+		"et": "1"
+	},
+	"application\/x-tika-msoffice": {
+		"lt": "2118"
+	},
+	"image\/vnd.dxf": {
+		"lt": "3"
+	},
+	"application\/x-hdf": {
+		"lt": "26"
+	},
+	"application\/vnd.google-earth.kml+xml": {
+		"sl": "14",
+		"sk": "12",
+		"ro": "42",
+		"gl": "1",
+		"ca": "11",
+		"it": "2",
+		"no": "7",
+		"hu": "1",
+		"pl": "2",
+		"fr": "4",
+		"en": "45",
+		"lt": "85",
+		"et": "19"
+	},
+	"application\/x-compress": {
+		"lt": "39"
+	},
+	"image\/vnd.microsoft.icon": {
+		"lt": "990"
+	},
+	"application\/dif+xml": {
+		"ro": "1520",
+		"fr": "2",
+		"en": "91",
+		"et": "1294"
+	},
+	"application\/vnd.openxmlformats-officedocument": {
+		"lt": "17"
+	},
+	"application\/x-rpm": {
+		"lt": "2"
+	},
+	"image\/vnd.adobe.photoshop": {
+		"lt": "4"
+	},
+	"image\/x-xcf": {
+		"lt": "1"
+	},
+	"application\/x-java-jnilib": {
+		"lt": "1"
+	},
+	"application\/octet-stream": {
+		"lt": "76709"
+	},
+	"application\/xml": {
+		"sl": "18",
+		"sk": "81",
+		"da": "2",
+		"ro": "137",
+		"is": "58",
+		"ca": "2",
+		"it": "454",
+		"no": "192",
+		"hu": "85",
+		"lt": "1470",
+		"de": "3",
+		"gl": "28",
+		"fi": "6",
+		"pl": "6",
+		"pt": "7",
+		"eo": "4",
+		"fr": "582",
+		"en": "2210",
+		"et": "259"
+	},
+	"image\/jpeg": {
+		"lt": "59113"
+	},
+	"application\/rss+xml": {
+		"sl": "5",
+		"sk": "31",
+		"da": "1",
+		"is": "2",
+		"uk": "1",
+		"ro": "62",
+		"it": "111",
+		"ca": "12",
+		"no": "138",
+		"hu": "7",
+		"lt": "1029",
+		"th": "25",
+		"de": "6",
+		"gl": "14",
+		"el": "1",
+		"fi": "7",
+		"pt": "7",
+		"pl": "2",
+		"sv": "1",
+		"fr": "463",
+		"en": "5194",
+		"et": "67",
+		"es": "17",
+		"nl": "2"
+	},
+	"video\/mp4": {
+		"lt": "618"
+	},
+	"application\/x-7z-compressed": {
+		"lt": "2"
+	},
+	"application\/vnd.ms-htmlhelp": {
+		"lt": "1"
+	},
+	"application\/gzip": {
+		"lt": "1173"
+	},
+	"application\/rtf": {
+		"no": "2",
+		"fr": "1",
+		"en": "35",
+		"lt": "6"
+	},
+	"application\/vnd.openxmlformats-officedocument.presentationml.slideshow": {
+		"en": "1"
+	},
+	"application\/vnd.ms-excel.sheet.4": {
+		"it": "1"
+	},
+	"audio\/x-wav": {
+		"lt": "75"
+	},
+	"application\/x-mspublisher": {
+		"lt": "2"
+	},
+	"application\/x-elc": {
+		"lt": "363"
+	},
+	"application\/zlib": {
+		"lt": "17"
+	},
+	"application\/vnd.sun.xml.writer": {
+		"en": "1"
+	},
+	"application\/xslt+xml": {
+		"sl": "1",
+		"ro": "1",
+		"no": "1",
+		"en": "4",
+		"lt": "3",
+		"et": "1"
+	},
+	"application\/postscript": {
+		"lt": "149"
+	},
+	"video\/x-ms-wmv": {
+		"lt": "120"
+	},
+	"image\/vnd.dwg": {
+		"lt": "3"
+	},
+	"audio\/x-ms-wma": {
+		"lt": "55"
+	},
+	"application\/x-lha": {
+		"lt": "2"
+	},
+	"application\/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+		"ro": "3",
+		"it": "7",
+		"no": "1",
+		"fr": "1",
+		"en": "279",
+		"lt": "3",
+		"et": "11"
+	},
+	"application\/mp4": {
+		"sk": "1",
+		"eo": "4",
+		"lt": "544"
+	},
+	"application\/vnd.openxmlformats-officedocument.presentationml.presentation": {
+		"en": "10",
+		"lt": "2"
+	},
+	"application\/x-sqlite3": {
+		"lt": "1"
+	},
+	"video\/x-ms-asf": {
+		"lt": "25"
+	},
+	"application\/vnd.openxmlformats-officedocument.wordprocessingml.template": {
+		"it": "1"
+	},
+	"application\/x-matroska": {
+		"lt": "65"
+	},
+	"application\/x-executable": {
+		"lt": "32"
+	},
+	"application\/x-msdownload": {
+		"lt": "89"
+	},
+	"application\/rdf+xml": {
+		"sl": "5",
+		"sk": "15",
+		"ro": "25",
+		"ca": "3",
+		"it": "65",
+		"no": "33",
+		"hu": "23",
+		"lt": "43",
+		"gl": "8",
+		"fi": "5",
+		"pl": "2",
+		"fr": "21",
+		"en": "570",
+		"et": "108",
+		"es": "1"
+	},
+	"application\/x-stuffit": {
+		"lt": "1"
+	},
+	"application\/x-grib": {
+		"lt": "3"
+	},
+	"application\/msword": {
+		"sk": "3",
+		"ro": "13",
+		"da": "2",
+		"it": "6",
+		"no": "4",
+		"fr": "3",
+		"en": "831",
+		"lt": "47",
+		"et": "8",
+		"es": "15"
+	},
+	"video\/x-msvideo": {
+		"lt": "74"
+	},
+	"video\/x-flv": {
+		"lt": "12"
+	},
+	"application\/vnd.ms-excel.sheet.macroenabled.12": {
+		"et": "1"
+	},
+	"application\/vnd.oasis.opendocument.text": {
+		"en": "3",
+		"ru": "1"
+	},
+	"application\/vnd.apple.keynote": {
+		"en": "1"
+	},
+	"application\/x-shockwave-flash": {
+		"lt": "120"
+	},
+	"image\/svg+xml": {
+		"sk": "7",
+		"is": "1",
+		"ro": "3",
+		"it": "11",
+		"no": "5",
+		"hu": "2",
+		"pl": "1",
+		"fr": "2",
+		"en": "3",
+		"lt": "247",
+		"et": "1"
+	},
+	"application\/java-vm": {
+		"et": "1"
+	},
+	"application\/epub+zip": {
+		"en": "10",
+		"lt": "19"
+	},
+	"image\/x-ms-bmp": {
+		"lt": "54"
+	},
+	"application\/x-rar-compressed": {
+		"eo": "1"
+	},
+	"text\/plain": {
+		"sl": "120",
+		"sk": "1123",
+		"uk": "13",
+		"da": "81",
+		"is": "316",
+		"ro": "7714",
+		"it": "8622",
+		"ca": "281",
+		"no": "6552",
+		"hu": "7606",
+		"fa": "1",
+		"lt": "9490",
+		"unknown": "7",
+		"de": "5",
+		"gl": "403",
+		"fi": "41",
+		"pl": "15",
+		"pt": "51",
+		"eo": "313",
+		"fr": "1719",
+		"sv": "10",
+		"en": "17195",
+		"ru": "3",
+		"et": "7849",
+		"es": "2",
+		"nl": "5",
+		"be": "2"
+	},
+	"audio\/x-mpegurl": {
+		"lt": "1"
+	},
+	"video\/quicktime": {
+		"lt": "181"
+	},
+	"audio\/mp4": {
+		"it": "6",
+		"no": "3",
+		"lt": "9"
+	},
+	"audio\/x-flac": {
+		"it": "1",
+		"lt": "1"
+	},
+	"audio\/basic": {
+		"lt": "98"
+	},
+	"video\/mpeg": {
+		"lt": "169"
+	},
+	"audio\/vorbis": {
+		"sk": "1",
+		"lt": "2"
+	},
+	"application\/x-tika-ooxml": {
+		"lt": "778"
+	},
+	"application\/vnd.rn-realmedia": {
+		"lt": "103"
+	},
+	"application\/pdf": {
+		"sl": "3",
+		"sk": "1099",
+		"da": "6",
+		"uk": "2",
+		"is": "8",
+		"ro": "363",
+		"ca": "3",
+		"it": "214",
+		"no": "150",
+		"hu": "52",
+		"lt": "19847",
+		"de": "1",
+		"gl": "39",
+		"fi": "131",
+		"pl": "4",
+		"fr": "88",
+		"eo": "1",
+		"en": "5531",
+		"ru": "4",
+		"et": "135",
+		"es": "35",
+		"nl": "1"
+	},
+	"video\/x-m4v": {
+		"hu": "1",
+		"lt": "167"
+	},
+	"application\/x-xz": {
+		"lt": "11"
+	},
+	"application\/x-msmetafile": {
+		"lt": "5"
+	}
+}
